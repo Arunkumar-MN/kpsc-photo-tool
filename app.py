@@ -1,41 +1,37 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 import streamlit as st
+from PIL import Image, ImageDraw
 
-# വെബ്സൈറ്റിലെ തലക്കെട്ട്
-st.title("കേരള ഗവൺമെന്റ് ജോബ് ഫോട്ടോ സെറ്റർ")
+st.title("KPSC Photo Maker")
 
-# ഉപഭോക്താവിൽ നിന്ന് പേര് വാങ്ങാൻ
-name = st.text_input("നിങ്ങളുടെ പേര് നൽകുക:")
+# 1. പേരും തീയതിയും ചോദിക്കുന്നു
+name = st.text_input("ഫോട്ടോയിൽ നൽകേണ്ട പേര്:")
+date = st.text_input("തീയതി (ഉദാ: 03/02/2026):")
 
-# ഫയൽ അപ്‌ലോഡ് ചെയ്യാൻ
-uploaded_file = st.file_uploader("നിങ്ങളുടെ ഫോട്ടോ തിരഞ്ഞെടുക്കുക", type=['jpg', 'png', 'jpeg'])
+# 2. ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുന്നു
+uploaded_file = st.file_uploader("നിങ്ങളുടെ ഫോട്ടോ തിരഞ്ഞെടുക്കുക", type=['jpg', 'jpeg', 'png'])
 
-if st.button("ഫോട്ടോ തയ്യാറാക്കുക"):
-    if uploaded_file is not None:
-        st.write(f"നന്ദി {name}, നിങ്ങളുടെ ഫോട്ടോ പ്രോസസ്സ് ചെയ്യുന്നു...")
-# %%
-        # ഇവിടെയാണ് നമ്മൾ നേരത്തെ പഠിച്ച Pillow കോഡ് ചേർക്കേണ്ടത്
-from PIL import Image, ImageDraw, ImageFont
-
-def process_photo(input_image_path, name, date):
-    # ഫോട്ടോ തുറക്കുക
-    img = Image.open(input_image_path)
+if uploaded_file is not None:
+    # ഫോട്ടോ തുറക്കുന്നു
+    img = Image.open(uploaded_file)
     
-    # 150x200 സൈസിലേക്ക് മാറ്റുക
+    # KPSC സൈസിലേക്ക് മാറ്റുന്നു (150x200)
     img = img.resize((150, 200))
     
-    # പേരും തീയതിയും ചേർക്കാൻ ഒരു Draw ഒബ്ജക്റ്റ് ഉണ്ടാക്കുക
+    # ഫോട്ടോയിൽ എഴുതാൻ തുടങ്ങുന്നു
     draw = ImageDraw.Draw(img)
-    
-    # പേരും തീയതിയും എഴുതുക (ഫോണ്ട് സെറ്റ് ചെയ്യണം)
+    # ശ്രദ്ധിക്കുക: ഫോണ്ട് ഫയൽ ഇല്ലെങ്കിൽ ഡിഫോൾട്ട് ഫോണ്ട് ഉപയോഗിക്കും
     draw.text((10, 160), name, fill="black")
     draw.text((10, 180), date, fill="black")
-    
-    # സേവ് ചെയ്യുക
-    img.save("kpsc_photo.jpg", quality=90)
+
+    # 3. ഫോട്ടോ സ്ക്രീനിൽ കാണിക്കുന്നു (ഇതാണ് നിങ്ങൾ ചോദിച്ച ഭാഗം)
+    st.image(img, caption='തയ്യാറാക്കിയ ഫോട്ടോ', use_container_width=False)
+
+    # 4. ഡൗൺലോഡ് ചെയ്യാനുള്ള ബട്ടൺ
+    img.save("final_photo.jpg")
+    with open("final_photo.jpg", "rb") as file:
+        st.download_button(
+            label="ഫോട്ടോ ഡൗൺലോഡ് ചെയ്യുക",
+            data=file,
+            file_name="kpsc_photo.jpg",
+            mime="image/jpg"
+        )
