@@ -1,4 +1,15 @@
 import streamlit as st
+import streamlit as st
+import os
+
+# ഗൂഗിൾ വെരിഫിക്കേഷൻ ഫയൽ റീഡ് ചെയ്യാൻ
+verification_file = "google-xxxxxx.html" # നിങ്ങളുടെ ഫയലിന്റെ പേര് ഇവിടെ നൽകുക
+
+if os.path.exists(verification_file):
+    with open(verification_file, "r") as f:
+        html_content = f.read()
+        # ഇത് സൈറ്റിന്റെ ഏതെങ്കിലും ഭാഗത്ത് കാണിക്കണം എന്നില്ല, 
+        # പക്ഷെ ഗൂഗിളിന് ആക്സസ് ചെയ്യാൻ സഹായിക്കും.
 st.set_page_config(
     page_title="KPSC Photo Resizer - Online Tool",
     page_icon="📸",
@@ -6,7 +17,7 @@ st.set_page_config(
 )
 from PIL import Image, ImageDraw, ImageOps
 
-st.title("KPSC ഫോട്ടോ മേക്കർ (Merged Border)")
+st.title("KPSC ഫോട്ടോ മേക്കർ")
 
 name = st.text_input("ഫോട്ടോയിൽ നൽകേണ്ട പേര്:")
 date = st.text_input("ഫോട്ടോ എടുത്ത തീയതി (DD/MM/YYYY):")
@@ -44,4 +55,5 @@ if uploaded_file is not None:
             file_name="kpsc_photo.jpg",
             mime="image/jpg"
         )
+
 
