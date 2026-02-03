@@ -14,7 +14,7 @@ st.set_page_config(
 # ഈ വരി നിങ്ങളുടെ app.py-ൽ ചേർത്താൽ ഗൂഗിൾ ബോട്ടിന് സൈറ്റ് വെരിഫൈ ചെയ്യാൻ പറ്റും
 st.markdown('<meta name="google-site-verification" content="നിങ്ങളുടെ_കോഡ്_ഇവിടെ_നൽകുക" />', unsafe_allow_html=True)
 
-st.title("KPSC ഫോട്ടോ മേക്കർ")
+
 import streamlit as st
 
 # ഗൂഗിൾ നൽകിയ മെറ്റാ ടാഗ് ഇവിടെ പേസ്റ്റ് ചെയ്യുക
@@ -83,6 +83,7 @@ if uploaded_file is not None:
             file_name="kpsc_photo.jpg",
             mime="image/jpg"
         )
+
 
 
 
