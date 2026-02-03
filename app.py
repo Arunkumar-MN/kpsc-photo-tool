@@ -24,7 +24,7 @@ google_verification_code = '<meta name="google-site-verification" content="ന�
 # ഇത് സ്ട്രീംലിറ്റിന്റെ ഹെഡറിൽ ചേർക്കാൻ സഹായിക്കും
 st.markdown(google_verification_code, unsafe_allow_html=True)
 
-st.title("KPSC ഫോട്ടോ മേക്കർ")
+
 # ബാക്കി കോഡുകൾ...
 import streamlit as st
 import streamlit as st
@@ -83,6 +83,7 @@ if uploaded_file is not None:
             file_name="kpsc_photo.jpg",
             mime="image/jpg"
         )
+
 
 
 
