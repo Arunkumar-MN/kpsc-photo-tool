@@ -1,4 +1,9 @@
 import streamlit as st
+st.set_page_config(
+    page_title="KPSC Photo Resizer - Online Tool",
+    page_icon="📸",
+    layout="centered"
+)
 from PIL import Image, ImageDraw, ImageOps
 
 st.title("KPSC ഫോട്ടോ മേക്കർ (Merged Border)")
@@ -39,3 +44,4 @@ if uploaded_file is not None:
             file_name="kpsc_photo.jpg",
             mime="image/jpg"
         )
+
